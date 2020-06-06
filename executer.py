@@ -34,7 +34,7 @@ class SafeExecute:
         :return: (return_code, stdout, stderr)
         """
         copy_files(files, self._temp_dir)
-        for file_name, content in new_files:
+        for file_name, content in new_files or ():
             with open(os.path.join(self._temp_dir, file_name), "wb") as f:
                 f.write(content)
 
