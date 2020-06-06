@@ -5,13 +5,13 @@ from subprocess import call
 APP_ARMOR_PROFILE_STENCIL = """
 #include <tunables/global>
 
-{executable_path} {
+{executable_path} {{
     #include <abstractions/base>
     #include <abstractions/python>
 
     # FILE_SYSTEM_RESTRICTION_BLOCK
     {fs_restrictions}
-}
+}}
 """
 
 FileSystemRestriction = namedtuple('FsRestriction', ['path', 'permissions', 'should_restrict_sub_files'])
