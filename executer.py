@@ -44,7 +44,8 @@ class SafeExecute:
 
         command_line = [self._executable]
         command_line.extend(argv)
-        stdin = stdin.encode('utf-8')
+        if stdin:
+            stdin = stdin.encode('utf-8')
 
         process = subprocess.Popen(
             command_line, cwd=self._temp_dir,
