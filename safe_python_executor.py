@@ -1,10 +1,13 @@
 from venv import EnvBuilder
+from executer import SafeExecutor
 import os
+from utils import get_temp_dir
 
 
 class SafePythonEnvironment:
-    def __init__(self, env_path: str):
-        self._env_path = env_path
+    def __init__(self, read_only_access: list = None, write_exec_access: list = None):
+        self._env_path = get_temp_dir()
+        super(SafePythonEnvironment, self).__init__()
 
     def create(self):
         # AppArmor dose not support symlinks well.

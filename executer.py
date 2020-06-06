@@ -5,7 +5,7 @@ import os
 import time
 
 
-class SafeExecute:
+class SafeExecutor:
     def __init__(self, executable_path: str, read_only_access: list = None, write_exec_access: list = None):
         self._executable = executable_path
         self._read_only_access = read_only_access or []
