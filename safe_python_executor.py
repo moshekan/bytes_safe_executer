@@ -4,10 +4,12 @@ import os
 from utils import get_temp_dir
 
 
-class SafePythonEnvironment:
-    def __init__(self, read_only_access: list = None, write_exec_access: list = None):
+class SafePythonExecutor:
+    def __init__(self, code: bytes = None, read_only_access: list = None, write_exec_access: list = None):
         self._env_path = get_temp_dir()
-        super(SafePythonEnvironment, self).__init__()
+
+    # TODO:
+        # Configure the entire evn to be executable and readable
 
     def create(self):
         # AppArmor dose not support symlinks well.
