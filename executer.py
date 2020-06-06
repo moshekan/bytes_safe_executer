@@ -1,6 +1,7 @@
 import subprocess
 from apparmor import AppArmorSecProfile, FileSystemRestriction
-from utils import create_temp_dir, copy_files, get_temp_dir
+from utils import copy_files, get_temp_dir
+import os
 import time
 
 
@@ -21,7 +22,8 @@ class SafeExecute:
             self._apparmor_profile.add_fs_restriction(FileSystemRestriction(path, "wrix", False))
         self._apparmor_profile.write_profile_and_update_app_armor()
 
-    def safe_execute(self, files=None, new_files=None, argv=None, stdin=None, timeout=60):
+    def safe_execute(self, files: list = None, new_files: list = None, argv: list = None, stdin: str = None,
+                     timeout: int = 60):
         """
         :param runnable: The main run file. ie, "/sbin/python".
         :param files: List of files to be copied to working directory.
@@ -32,9 +34,13 @@ class SafeExecute:
         :return: (return_code, stdout, stderr)
         """
         copy_files(files, self._temp_dir)
+        for file_name, content in new_files:
+            with open(os.path.join(self._temp_dir, file_name), "wb") as f:
+                f.write(content)
+
         command_line = [self._executable]
         command_line.extend(argv)
-        stdin.stdin.encode('utf-8')
+        stdin = stdin.encode('utf-8')
 
         process = subprocess.Popen(
             command_line, cwd=self._temp_dir,
