@@ -33,8 +33,12 @@ class SafeExecute:
         :param timeout: Timeout which the proccess will get terminated after in SECONDS.
         :return: (return_code, stdout, stderr)
         """
+        files = files or []
+        new_files = new_files or []
+        argv = argv or []
+
         copy_files(files, self._temp_dir)
-        for file_name, content in new_files or ():
+        for file_name, content in new_files:
             with open(os.path.join(self._temp_dir, file_name), "wb") as f:
                 f.write(content)
 
