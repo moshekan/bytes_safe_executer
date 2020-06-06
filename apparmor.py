@@ -16,8 +16,6 @@ APP_ARMOR_PROFILE_STENCIL = """
 
 FileSystemRestriction = namedtuple('FsRestriction', ['path', 'permissions', 'should_restrict_sub_files'])
 
-class File
-
 
 class AppArmorSecProfile:
     PROFILES_DIR = "/etc/apparmor.d/"
